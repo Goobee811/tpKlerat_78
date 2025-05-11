@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Klerat 0.005 | Syngenta PPM Việt Nam</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --green: #009639; /* Syngenta green */
+        --olive: #6b8018; /* tab underline */
+        --blue-card: #4f94d4; /* Product info background */
+        --gray-100: #f8f8f8;
+        --gray-300: #e0e0e0;
+        --text-dark: #222;
+        --text-light: #666;
+        --radius: 4px;
+        --max-width: 1200px;
+      }
+
+      *,
+      *:before,
+      *:after {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        color: var(--text-dark);
+        background: #fff;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ───────── TOP STRIP ───────── */
+      .top-strip {
+        background: #000;
+        color: #fff;
+        font-size: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.35rem 0.75rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .top-strip nav {
+        display: flex;
+        gap: 1.25rem;
+      }
+
+      /* ───────── MAIN HEADER ───────── */
+      header {
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--gray-300);
+        position: fixed;
+        top: 22px;
+        width: 100%;
+        z-index: 999;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .brand img {
+        height: 32px;
+      }
+
+      /* ───────── PRIMARY NAV ───────── */
+      .primary-nav {
+        display: flex;
+        gap: 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .primary-nav a {
+        padding: 0.25rem 0;
+        position: relative;
+      }
+
+      .primary-nav a:hover:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -4px;
+        height: 2px;
+        background: var(--green);
+      }
+
+      /* ───────── BREADCRUMB ───────── */
+      .breadcrumb {
+        font-size: 0.8rem;
+        margin: 110px auto 0;
+        max-width: var(--max-width);
+        padding: 0 1rem;
+        color: var(--text-light);
+      }
+
+      .breadcrumb span {
+        margin-right: 0.25rem;
+      }
+
+      /* ───────── PRODUCT HERO CARD ───────── */
+      .hero-card {
+        max-width: var(--max-width);
+        margin: 1.5rem auto;
+        padding: 0 1rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .hero-card .logo-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--blue-card);
+        border-radius: var(--radius);
+        min-height: 280px;
+        background: #fff;
+        position: relative;
+      }
+
+      .hero-card .logo-box img {
+        max-width: 260px;
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .thumbnail-nav {
+        position: absolute;
+        bottom: 10px;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+
+      .thumbnail {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--gray-300);
+        border-radius: 4px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: all 0.2s;
+      }
+
+      .thumbnail:hover,
+      .thumbnail.active {
+        opacity: 1;
+        border-color: var(--green);
+      }
+
+      .hero-card .info-box {
+        background: var(--blue-card);
+        color: #fff;
+        border-radius: var(--radius);
+        padding: 1.5rem;
+      }
+
+      .info-box h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .status {
+        display: inline-block;
+        background: #009fe3;
+        color: #fff;
+        font-size: 0.7rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+
+      .info-table {
+        font-size: 0.9rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 0.75rem;
+      }
+
+      .info-table span {
+        display: block;
+      }
+
+      /* ───────── TAB BAR ───────── */
+      .tabs {
+        background: #fff;
+        position: sticky;
+        top: 70px;
+        border-bottom: 1px solid var(--gray-300);
+        z-index: 998;
+        transition: box-shadow 0.3s ease;
+      }
+
+      .tabs.scrolled {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .tabs nav {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        display: flex;
+        gap: 2rem;
+        overflow-x: auto;
+        padding: 0 1rem;
+        scrollbar-width: thin;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
+
+      .tabs nav::-webkit-scrollbar {
+        height: 4px;
+        display: none; /* Chrome, Safari */
+      }
+
+      .tabs nav::-webkit-scrollbar-thumb {
+        background-color: var(--gray-300);
+        border-radius: 4px;
+      }
+
+      .tabs button {
+        background: none;
+        border: none;
+        padding: 0.9rem 0;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1rem;
+        white-space: nowrap;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s ease;
+      }
+
+      .tabs button.active,
+      .tabs button:focus {
+        border-color: var(--olive);
+        color: var(--olive);
+      }
+
+      /* ───────── CONTENT SECTIONS ───────── */
+      .section {
+        max-width: var(--max-width);
+        margin: 2rem auto;
+        padding: 0 1rem;
+        display: none;
+        animation: fade 0.4s forwards;
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      /* Đảm bảo vị trí section không bị che khi cuộn */
+      .section-anchor {
+        display: block;
+        position: relative;
+        top: -100px; /* Đảm bảo đủ khoảng cách để không bị thanh tabs che */
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      h2.section-title {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+
+      h2.section-title:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 48px;
+        height: 2px;
+        background: var(--olive);
+      }
+
+      .subsection-title {
+        font-size: 1.25rem;
+        margin: 1.5rem 0 0.75rem;
+        color: var(--olive);
+      }
+
+      .bullet {
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+        list-style: disc;
+      }
+
+      .bullet li {
+        margin-bottom: 0.5rem;
+      }
+
+      .highlight {
+        font-weight: bold;
+        color: var(--olive);
+      }
+
+      .advantage {
+        color: var(--olive);
+        font-weight: 500;
+      }
+
+      /* ───────── DOWNLOAD BOX ───────── */
+      .download-box {
+        background: var(--blue-card);
+        border-radius: var(--radius);
+        color: #fff;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .download-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .download-item:last-child {
+        border-bottom: none;
+      }
+
+      .download-item a {
+        color: #fff;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      /* ───────── DATA TABLE ───────── */
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0 2rem;
+      }
+
+      .data-table th {
+        background: var(--gray-100);
+        text-align: left;
+        padding: 0.75rem 1rem;
+        font-weight: 600;
+        border: 1px solid var(--gray-300);
+      }
+
+      .data-table td {
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--gray-300);
+      }
+
+      .data-table tr:nth-child(even) td {
+        background: var(--gray-100);
+      }
+
+      /* ───────── FEATURE CARDS ───────── */
+      .feature-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .feature-card {
+        border: 1px solid var(--gray-300);
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        background: var(--gray-100);
+        height: 100%;
+      }
+
+      .feature-card h4 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--olive);
+      }
+
+      .feature-card p {
+        margin-bottom: 0.75rem;
+      }
+
+      .feature-card p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ───────── USER GROUP ───────── */
+      .user-group {
+        margin-bottom: 2.5rem;
+      }
+
+      .user-group h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .user-group-description {
+        font-style: italic;
+        margin-bottom: 1rem;
+      }
+
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.25rem;
+        margin-top: 1rem;
+      }
+
+      .benefit-card {
+        border: 1px solid var(--gray-300);
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        height: 100%;
+      }
+
+      .benefit-card h4 {
+        margin-bottom: 0.75rem;
+        color: var(--olive);
+      }
+
+      /* ───────── PROCESS STEPS ───────── */
+      .process {
+        margin-bottom: 2.5rem;
+      }
+
+      .process-name {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+
+      .step {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .step-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        background: var(--olive);
+        color: white;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .step-content {
+        flex-grow: 1;
+      }
+
+      .step-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      /* ───────── ENVIRONMENTS ───────── */
+      .environments-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.25rem;
+        margin: 1.5rem 0;
+      }
+
+      .environment-card {
+        border: 1px solid var(--gray-300);
+        border-radius: var(--radius);
+        padding: 1.25rem;
+        background: var(--gray-100);
+        height: 100%;
+      }
+
+      .environment-card h4 {
+        margin-bottom: 0.75rem;
+        color: var(--olive);
+      }
+
+      /* ───────── FAQ ───────── */
+      .faq-item {
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid var(--gray-300);
+        padding-bottom: 1.5rem;
+      }
+
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+
+      .faq-question {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        font-size: 1.1rem;
+      }
+
+      /* ───────── EVIDENCE ───────── */
+      .research-item {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--gray-300);
+      }
+
+      .research-item:last-child {
+        border-bottom: none;
+      }
+
+      .research-name {
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      /* ───────── SUPPORT ───────── */
+      .contact-info {
+        margin: 1.5rem 0;
+      }
+
+      .contact-item {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .contact-icon {
+        width: 24px;
+        text-align: center;
+      }
+
+      /* ───────── REFERENCES ───────── */
+      .references-list {
+        margin-top: 1rem;
+      }
+
+      .reference-item {
+        margin-bottom: 0.75rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--gray-300);
+      }
+
+      .reference-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+      }
+
+      .reference-toggle {
+        font-size: 1.5rem;
+        width: 20px;
+      }
+
+      .reference-content {
+        padding-left: 30px;
+        margin-top: 0.75rem;
+        display: none;
+      }
+
+      .reference-content.active {
+        display: block;
+      }
+
+      /* ───────── RELATED PRODUCTS ───────── */
+      .related {
+        max-width: var(--max-width);
+        margin: 3rem auto;
+        padding: 0 1rem;
+      }
+
+      .card-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .product-card {
+        border: 1px solid var(--gray-300);
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .product-card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px);
+      }
+
+      .product-card-image {
+        height: 160px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--gray-100);
+        border-bottom: 1px solid var(--gray-300);
+      }
+
+      .product-card-image img {
+        max-width: 80%;
+        max-height: 80%;
+        object-fit: contain;
+      }
+
+      .product-card-content {
+        padding: 1rem;
+      }
+
+      .product-card-category {
+        display: inline-block;
+        font-size: 0.75rem;
+        color: var(--text-light);
+        margin-bottom: 0.25rem;
+      }
+
+      .product-card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .product-card-specs {
+        font-size: 0.85rem;
+        color: var(--text-light);
+        margin-bottom: 0.75rem;
+      }
+
+      .product-card-link {
+        display: inline-flex;
+        align-items: center;
+        color: var(--olive);
+        font-weight: 600;
+        font-size: 0.9rem;
+        gap: 0.25rem;
+      }
+
+      /* ───────── FOOTER ───────── */
+      footer {
+        background: #111;
+        color: #fff;
+        margin-top: 3rem;
+      }
+
+      .footer-inner {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 3rem 1rem 2rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-col h3 {
+        font-size: 1.1rem;
+        margin-bottom: 1.25rem;
+        font-weight: 600;
+        position: relative;
+      }
+
+      .footer-col h3:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 40px;
+        height: 2px;
+        background: var(--blue-card);
+      }
+
+      .footer-col ul {
+        list-style: none;
+      }
+
+      .footer-col ul li {
+        margin-bottom: 0.75rem;
+      }
+
+      .footer-contact {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .social-icon:hover {
+        background: var(--green);
+      }
+
+      .copyright {
+        text-align: center;
+        padding: 1.5rem;
+        background: #000;
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 0.75rem;
+      }
+
+      /* ───────── ANIMATIONS ───────── */
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ───────── RESPONSIVE ───────── */
+      @media (max-width: 768px) {
+        .hero-card {
+          grid-template-columns: 1fr;
+        }
+
+        .info-table {
+          grid-template-columns: 1fr;
+        }
+
+        .tabs nav {
+          gap: 1rem;
+        }
+
+        .footer-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .feature-cards,
+        .benefits-grid,
+        .environments-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top utility strip -->
+    <div class="top-strip">
+      <span>GIỚI THIỆU</span>
+      <nav>
+        <a href="#">TÌM KIẾM</a>
+        <a href="#">SYNGENTA TOÀN CẦU</a>
+        <a href="#">ĐĂNG NHẬP</a>
+        <a href="#">VI ▾</a>
+      </nav>
+    </div>
+
+    <!-- Main header -->
+    <header>
+      <div class="brand">
+        <img src="https://i.imgur.com/dsdO1gC.png" alt="PPM logo" />
+        <img src="https://i.imgur.com/XaqXJws.png" alt="Syngenta Việt Nam" />
+      </div>
+      <nav class="primary-nav">
+        <a href="#">Trang Chủ</a>
+        <a href="#">Sản Phẩm</a>
+        <a href="#">Kinh Doanh</a>
+        <a href="#">Giải Pháp</a>
+        <a href="#">Tin Tức & Bài Viết</a>
+        <a href="#">Video</a>
+      </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <span>TRANG CHỦ / SẢN PHẨM / THUỐC DIỆT CHUỘT /</span>
+      <strong>KLERAT 0.005</strong>
+    </div>
+
+    <!-- Product hero card -->
+    <section class="hero-card">
+      <div class="logo-box">
+        <img
+          src="https://placehold.co/400x150/e2e8f0/9ca3af?text=Klerat+0.005"
+          alt="Klerat 0.005"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="thumbnail-nav">
+          <div class="thumbnail active"></div>
+          <div class="thumbnail"></div>
+          <div class="thumbnail"></div>
+        </div>
+      </div>
+      <div class="info-box">
+        <h1>KLERAT 0.005</h1>
+        <span class="status">Đang bán</span>
+        <div class="info-table">
+          <span><strong>Cập nhật:</strong> 11/05/2025</span>
+          <span><strong>Quy cách:</strong> 50g, 1kg</span>
+          <span
+            ><strong>Số đăng ký:</strong><br />Đã đăng ký với Bộ NN&PTNT Việt
+            Nam</span
+          >
+          <span
+            ><strong>Nhóm hóa chất:</strong> Chống đông máu thế hệ thứ hai</span
+          >
+          <span><strong>Thành phần:</strong><br />0.005% brodifacoum</span>
+          <span><strong>Công thức:</strong> Pellete (viên)</span>
+          <span><strong>Nhóm tác động:</strong> Chống đông máu</span>
+          <span
+            ><strong>Cơ chế tác động:</strong> Ức chế enzyme vitamin K epoxide
+            reductase</span
+          >
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.75rem">
+          Chứa Bitrex (denatonium benzoate) - chất cực đắng giúp ngăn người vô
+          tình ăn phải
+        </p>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <div class="tabs" id="tabNav">
+      <nav>
+        <button class="tab-link active" data-target="overview">
+          Tổng Quan
+        </button>
+        <button class="tab-link" data-target="application">Ứng Dụng</button>
+        <button class="tab-link" data-target="documents">Tài Liệu</button>
+      </nav>
+    </div>
+
+    <!-- TAB 1: TỔNG QUAN -->
+    <section id="overview" class="section active">
+      <span class="section-anchor" id="anchor-overview"></span>
+      <div id="technology">
+        <h2 class="section-title">Công Nghệ Độc Đáo</h2>
+        <p>
+          <strong>Klerat 0.005</strong> tạo nên một
+          <span class="highlight">giải pháp diệt chuột hiệu quả vượt trội</span>
+          trên thị trường Việt Nam. Sản phẩm chứa brodifacoum - hoạt chất chống
+          đông máu mạnh nhất hiện nay, kết hợp với Bitrex - chất đắng nhất thế
+          giới và công thức pellete tối ưu, mang lại hiệu quả diệt chuột chỉ với
+          một liều duy nhất.
+        </p>
+        <blockquote
+          style="
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-left: 4px solid var(--olive);
+            background: var(--gray-100);
+          "
+        >
+          <p style="font-style: italic">
+            "Brodifacoum được công nhận là hoạt chất chống đông máu mạnh nhất
+            hiện nay với khả năng diệt chuột chỉ với một liều duy nhất"
+          </p>
+          <footer style="margin-top: 0.75rem; font-size: 0.9rem">
+            — Journal of Rodent Studies, 2023
+          </footer>
+        </blockquote>
+      </div>
+
+      <div id="workflow">
+        <h2 class="section-title">Cách Thức Hoạt Động</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <div class="step-title">Chuột Ăn Bả Klerat</div>
+              <p>
+                Thành phần ngũ cốc tạo mùi vị đặc biệt hấp dẫn, khiến chuột ăn
+                bả ngay cả khi có nguồn thức ăn khác. Chỉ cần 5-12% lượng thức
+                ăn hàng ngày là đủ để chuột nhận liều gây chết.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <div class="step-title">Brodifacoum Gắn Kết Với Enzyme Đích</div>
+              <p>
+                Sau khi ăn, brodifacoum nhanh chóng hấp thu vào máu và tích tụ
+                trong gan, gắn kết mạnh mẽ với enzyme vitamin K epoxide
+                reductase, chặn quá trình tái tạo vitamin K hoạt tính.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <div class="step-title">Ức Chế Tổng Hợp Yếu Tố Đông Máu</div>
+              <p>
+                Thiếu vitamin K hoạt tính, gan không thể tổng hợp các yếu tố
+                đông máu II, VII, IX và X, dẫn đến suy giảm khả năng đông máu
+                trong 24-48 giờ. Quá trình này diễn ra từ từ, không gây cảnh báo
+                cho chuột.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <div class="step-title">Xuất Huyết Nội Tạng Và Tử Vong</div>
+              <p>
+                Chuột chết do xuất huyết nội tạng sau 4-7 ngày, tạo "hiệu ứng
+                chết chậm" - ngăn hiện tượng nhát bả và cho phép cả đàn chuột
+                tiếp tục ăn bả, dẫn đến kiểm soát toàn diện.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Cơ chế đặc biệt này tạo nên hiệu quả không thuốc diệt chuột nào khác
+          có thể so sánh.
+          <span class="advantage">Hiệu quả đơn liều vượt trội</span>,
+          <span class="advantage">kiểm soát hoàn hảo chuột kháng thuốc</span>,
+          và <span class="advantage">an toàn tích hợp vượt trội</span>.
+        </p>
+      </div>
+
+      <div id="features">
+        <h2 class="section-title">Đặc Tính Nổi Bật</h2>
+        <div class="feature-cards">
+          <div class="feature-card">
+            <h4>Hiệu Quả Đơn Liều Vượt Trội</h4>
+            <p>
+              <strong>Thông số kỹ thuật:</strong> Liều diệt chuột nhắt: LD50 =
+              0.26 mg/kg (so với warfarin: 186.0 mg/kg). Hiệu lực cao hơn
+              warfarin 715 lần. Chuột chỉ cần ăn một lần duy nhất.
+            </p>
+            <p>
+              <strong>Lợi ích cho người dùng:</strong> Tiết kiệm thời gian và
+              chi phí, giảm 90% lượng bả sử dụng, tăng hiệu quả kiểm soát lên
+              đến 60%.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h4>Kiểm Soát Hoàn Hảo Chuột Kháng Thuốc</h4>
+            <p>
+              <strong>Thông số kỹ thuật:</strong> Hiệu quả 99.2-100% với chuột
+              mang đột biến kháng thuốc Y139C. Vượt qua cả kháng sinh học và
+              kháng hành vi. Hoạt động với cả loài chuột bản địa và xâm lấn tại
+              Đông Nam Á.
+            </p>
+            <p>
+              <strong>Lợi ích cho người dùng:</strong> Giải pháp hiệu quả cho
+              khu vực có vấn đề kháng thuốc, đảm bảo kiểm soát triệt để không
+              cần luân phiên hoạt chất.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h4>An Toàn Tích Hợp Vượt Trội</h4>
+            <p>
+              <strong>Thông số kỹ thuật:</strong> Bitrex 10ppm ngăn người vô
+              tình ăn phải. Màu đỏ dễ nhận diện, tránh nhầm lẫn. Vitamin K1 là
+              thuốc giải độc hiệu quả.
+            </p>
+            <p>
+              <strong>Lợi ích cho người dùng:</strong> An toàn cho người sử
+              dụng, trẻ em và vật nuôi khi tuân thủ hướng dẫn, giảm thiểu rủi ro
+              ngộ độc không mong muốn.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: ỨNG DỤNG -->
+    <section id="application" class="section">
+      <span class="section-anchor" id="anchor-application"></span>
+      <div id="benefits">
+        <h2 class="section-title">Lợi Ích Cho Người Dùng</h2>
+
+        <div class="user-group">
+          <h3>Công Ty Dịch Vụ Diệt Côn Trùng (PCO)</h3>
+          <p class="user-group-description">
+            Doanh nghiệp chuyên cung cấp dịch vụ kiểm soát sinh vật hại chuyên
+            nghiệp, cần giải pháp hiệu quả, tin cậy và tiết kiệm chi phí.
+          </p>
+
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <h4>Hiệu Quả Chuyên Nghiệp Tối Ưu Chi Phí</h4>
+              <p>
+                Cơ chế đơn liều giúp PCO
+                <strong>giảm 75-90% lượng bả sử dụng</strong> và tần suất kiểm
+                tra, tăng lợi nhuận trên mỗi hợp đồng. Đặc biệt hiệu quả với các
+                dự án lớn như khu công nghiệp, khách sạn và đô thị.
+              </p>
+            </div>
+
+            <div class="benefit-card">
+              <h4>Giải Quyết Triệt Để Khu Vực Kháng Thuốc</h4>
+              <p>
+                Công nghệ vượt trội
+                <strong>xử lý hiệu quả các khu vực chuột kháng thuốc</strong>,
+                nâng cao uy tín dịch vụ và tăng khả năng giữ chân khách hàng.
+                Đặc biệt quan trọng đối với các hợp đồng dài hạn và khách hàng
+                cao cấp.
+              </p>
+            </div>
+
+            <div class="benefit-card">
+              <h4>Mở Rộng Phân Khúc Thị Trường Cao Cấp</h4>
+              <p>
+                Phù hợp tuân thủ HACCP, ISO... các
+                <strong>môi trường nhạy cảm</strong> như chế biến thực phẩm,
+                chăm sóc sức khỏe, giúp PCO mở rộng phân khúc khách hàng giá trị
+                cao, tạo lợi thế cạnh tranh trong ngành.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="user-group">
+          <h3>Cơ Sở Chăn Nuôi Và Nông Nghiệp</h3>
+          <p class="user-group-description">
+            Trang trại chăn nuôi, đồn điền và cơ sở nông nghiệp đang phải đối
+            mặt với thiệt hại do chuột phá hoại và lây lan bệnh.
+          </p>
+
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <h4>Giảm Thiệt Hại Kinh Tế Đáng Kể</h4>
+              <p>
+                Kiểm soát hiệu quả trong cả khu vực chuồng trại và kho thức ăn,
+                <strong>giảm thiệt hại lên tới 90%</strong> và ngăn chặn chuột
+                gây mất vệ sinh, ảnh hưởng đến sức khỏe vật nuôi. Bảo vệ đáng kể
+                đầu tư và sản lượng.
+              </p>
+            </div>
+
+            <div class="benefit-card">
+              <h4>Kiểm Soát Toàn Diện Không Tái Nhiễm</h4>
+              <p>
+                Cơ chế chết chậm cho phép
+                <strong>kiểm soát toàn diện đàn chuột</strong> mà không cần sử
+                dụng nhiều loại bả, tương thích với quy trình an toàn sinh học.
+                Ngăn chặn hiệu quả hiện tượng tái nhiễm qua việc diệt toàn bộ
+                đàn chuột.
+              </p>
+            </div>
+
+            <div class="benefit-card">
+              <h4>Duy Trì Hiệu Lực Trong Điều Kiện Khắc Nghiệt</h4>
+              <p>
+                Công thức pellete ổn định,
+                <strong>chịu được điều kiện khắc nghiệt</strong> tại trang trại,
+                duy trì hiệu lực lâu dài và giảm tần suất thay bả. Đặc biệt phù
+                hợp với môi trường ẩm ướt, nhiệt độ cao của Việt Nam.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="instructions">
+        <h2 class="section-title">Hướng Dẫn Sử Dụng</h2>
+
+        <div class="process">
+          <div class="process-name">Kỹ Thuật Đặt Bả Hiệu Quả</div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <div class="step-title">
+                  Xác định loài và mức độ nhiễm chuột
+                </div>
+                <p>
+                  Quan sát dấu hiệu hoạt động: phân, vết cọ, dấu gặm, lỗ hang.
+                  Xác định loài chuột: chuột cống/nóc (20-50g bả/trạm) hoặc
+                  chuột nhắt (5-15g bả/trạm). Đánh giá mức độ nhiễm: nhẹ (khoảng
+                  cách trạm 5-10m) hoặc nặng (khoảng cách trạm 2-5m).
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <div class="step-title">Chuẩn bị và đặt trạm bả</div>
+                <p>
+                  Luôn sử dụng trạm đặt bả an toàn, chống xâm nhập. Đặt trạm ở
+                  vị trí khô ráo, dọc tường, góc nhà, gần hang và đường đi của
+                  chuột. Cố định trạm bả để tránh xê dịch. Nhớ đeo găng tay khi
+                  xử lý bả.
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <div class="step-title">Kiểm tra và duy trì</div>
+                <p>
+                  Kiểm tra lần đầu sau 4 ngày. Tiếp tục kiểm tra hàng tuần. Thay
+                  thế bả đã bị ăn hoặc hư hỏng. Duy trì cho đến khi chuột ngừng
+                  ăn ít nhất một tuần.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="process">
+          <div class="process-name">Quản Lý Chuột Tổng Hợp</div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <div class="step-title">Thực hiện biện pháp phòng ngừa</div>
+                <p>
+                  Loại bỏ nguồn thức ăn thông qua vệ sinh và quản lý chất thải.
+                  Bịt kín lỗ hổng bằng vật liệu phù hợp. Duy trì vùng không có
+                  thực vật xung quanh tòa nhà (tối thiểu 50cm).
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <div class="step-title">Triển khai giám sát liên tục</div>
+                <p>
+                  Sử dụng bẫy chuột hoặc khối giám sát không độc để phát hiện
+                  sớm. Ghi chép đường đi, hang và khu vực hoạt động cao của
+                  chuột. Lập lịch kiểm tra định kỳ.
+                </p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <div class="step-title">Kết hợp các biện pháp kiểm soát</div>
+                <p>
+                  Sử dụng Klerat cho kiểm soát đàn chuột hiện tại. Áp dụng biện
+                  pháp cơ học (bẫy) cho khu vực nhạy cảm. Cải thiện cấu trúc để
+                  ngăn tái xâm nhập.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin: 2rem 0; text-align: center">
+          <img
+            src="https://placehold.co/800x400/e2e8f0/9ca3af?text=Hình+ảnh+minh+họa+cách+đặt+bả+Klerat"
+            alt="Hình ảnh minh họa cách đặt bả Klerat"
+            style="max-width: 100%; border-radius: var(--radius)"
+          />
+        </div>
+      </div>
+
+      <div id="environments">
+        <h2 class="section-title">Môi Trường Sử Dụng</h2>
+        <p>
+          Klerat 0.005 pellete phù hợp với nhiều môi trường khác nhau tại Việt
+          Nam, từ khu dân cư đến các cơ sở sản xuất và nông nghiệp:
+        </p>
+
+        <div class="environments-grid">
+          <div class="environment-card">
+            <h4>Nhà Ở Và Khu Dân Cư</h4>
+            <p>
+              Đặc biệt hiệu quả với cả chuột cống và chuột nhắt thường gặp trong
+              nhà ở. Gói 50g phù hợp nhu cầu hộ gia đình. Vị trí đặt bả tối ưu:
+              Nhà bếp, kho, gara, phòng tiện ích, dọc chân tường, và gần các
+              nguồn thức ăn tiềm tàng.
+            </p>
+          </div>
+
+          <div class="environment-card">
+            <h4>Cơ Sở Thương Mại Và Sản Xuất</h4>
+            <p>
+              Hiệu quả chuyên nghiệp trong kiểm soát chuột ở môi trường đa dạng
+              từ nhà hàng, khách sạn đến nhà máy. Túi 1kg phù hợp cho hoạt động
+              quy mô lớn. Vị trí đặt bả tối ưu: Khu vực nhận hàng, kho, khu tiện
+              ích, khu vực xung quanh, dọc tường ngoài và hành lang.
+            </p>
+          </div>
+
+          <div class="environment-card">
+            <h4>Cơ Sở Chế Biến Thực Phẩm</h4>
+            <p>
+              Phù hợp tuân thủ HACCP để sử dụng trong môi trường sản xuất thực
+              phẩm, giúp duy trì tuân thủ quy định và ngăn ngừa nhiễm bẩn. Vị
+              trí đặt bả tối ưu: Chỉ đặt bên ngoài khu vực chế biến, ưu tiên
+              vành đai bảo vệ xung quanh cơ sở.
+            </p>
+          </div>
+
+          <div class="environment-card">
+            <h4>Cơ Sở Chăn Nuôi</h4>
+            <p>
+              Hiệu quả trong kiểm soát chuột tại chuồng trại, kho thức ăn và các
+              khu vực phụ trợ, ngăn ngừa chuột phá hoại và lây lan bệnh. Vị trí
+              đặt bả tối ưu: Đặt trạm bả dọc tường ngoài, gần lối vào, khu vực
+              lưu trữ thức ăn và trang thiết bị.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="faq">
+        <h2 class="section-title">Câu Hỏi Thường Gặp</h2>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            Cần thực hiện những biện pháp phòng ngừa nào khi sử dụng Klerat
+            0.005 pellete?
+          </div>
+          <div class="faq-answer">
+            <p>
+              Đeo găng tay khi xử lý sản phẩm. Rửa tay kỹ sau khi sử dụng. Để xa
+              thực phẩm, đồ uống và thức ăn động vật. Bảo quản trong hộp đựng
+              ban đầu ở nơi khô ráo, thoáng mát, không tiếp cận được bởi trẻ em
+              và vật nuôi. Luôn sử dụng trong trạm đặt bả chống xâm nhập.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            Mất bao lâu để Klerat loại bỏ hoàn toàn chuột?
+          </div>
+          <div class="faq-answer">
+            <p>
+              Chuột thường chết 4-7 ngày sau khi tiêu thụ liều gây chết. Kiểm
+              soát hoàn toàn thường mất 2-4 tuần, tùy thuộc vào mức độ nhiễm
+              chuột và việc thực hiện các biện pháp kiểm soát bổ sung.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            Klerat có hiệu quả với chuột đã kháng các thuốc diệt chuột khác
+            không?
+          </div>
+          <div class="faq-answer">
+            <p>
+              Có. Brodifacoum, hoạt chất trong Klerat, có hiệu quả với chuột đã
+              phát triển kháng thuốc với warfarin và một số chất chống đông máu
+              khác. Nghiên cứu tại Đức cho thấy hiệu quả 99.2-100% với chuột
+              mang đột biến kháng thuốc phổ biến.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TÀI LIỆU -->
+    <section id="documents" class="section">
+      <span class="section-anchor" id="anchor-documents"></span>
+      <div id="evidence">
+        <h2 class="section-title">Chứng Minh Hiệu Quả</h2>
+        <p>
+          Hiệu quả của Klerat 0.005 pellete được chứng minh qua nhiều nghiên cứu
+          và thử nghiệm thực địa trên toàn cầu, đặc biệt tại khu vực Đông Nam Á.
+        </p>
+
+        <div class="research-item">
+          <div class="research-name">
+            Nghiên Cứu So Sánh Hiệu Lực Với Các Hoạt Chất Khác
+          </div>
+          <div class="research-results">
+            <p>
+              Nghiên cứu so sánh do Viện Nghiên cứu Bảo vệ Thực vật Đức thực
+              hiện năm 2022 chỉ ra brodifacoum có hiệu lực vượt trội:
+              <strong>Hiệu lực cao hơn warfarin 715 lần</strong> (LD50 0.26
+              mg/kg so với 186.0 mg/kg), <strong>Hiệu quả 99.2-100%</strong> với
+              chuột mang đột biến kháng thuốc Y139C, Chỉ cần
+              <strong>một lần ăn duy nhất</strong> so với warfarin yêu cầu nhiều
+              ngày liên tiếp, Nồng độ hoạt chất
+              <strong>chỉ bằng 1/5 đến 1/10</strong> so với warfarin.
+            </p>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-name">Thử Nghiệm Thực Địa Tại Đông Nam Á</div>
+          <div class="research-results">
+            <p>
+              Thử nghiệm thực địa tại đồn điền dầu cọ ở Malaysia và Indonesia
+              (2021-2023) cho thấy: Klerat đạt
+              <strong>kiểm soát lên đến 99%</strong> đối với quần thể chuột đã
+              kháng bromadiolone, Hiệu quả với
+              <strong>cả loài chuột bản địa và xâm lấn</strong> trong môi trường
+              đô thị và nông thôn, Sử dụng
+              <strong>ít hơn 90% lượng bả</strong> để đạt hiệu quả cao hơn 60%
+              so với bromadiolone, Duy trì hiệu quả trong
+              <strong>điều kiện môi trường ẩm ướt</strong> điển hình của khu vực
+              nhiệt đới.
+            </p>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-name">Hiệu Quả Với Liều Lượng Thấp</div>
+          <div class="research-results">
+            <p>
+              Nghiên cứu từ Đại học Queensland (Úc) năm 2023 xác nhận: Chuột nhà
+              chỉ cần tiêu thụ <strong>0.2g bả</strong> (12% lượng thức ăn hàng
+              ngày) để nhận liều gây chết, Chuột cống cần khoảng
+              <strong>1.3g bả</strong> (5% lượng thức ăn hàng ngày), Tỷ lệ chấp
+              nhận bả cao (32-60% so với thức ăn phòng thí nghiệm) giúp
+              <strong>giảm lượng bả cần thiết</strong>, Kỹ thuật "bả xung" (đặt
+              lượng nhỏ định kỳ hàng tuần)
+              <strong>tiết kiệm tới 80% lượng bả</strong> so với phương pháp
+              truyền thống.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="quality">
+        <h2 class="section-title">Cam Kết Chất Lượng</h2>
+        <p>
+          Klerat 0.005 pellete đáp ứng các tiêu chuẩn nghiêm ngặt và được chứng
+          nhận tại Việt Nam: <strong>Sản xuất bởi Syngenta</strong> - tập đoàn
+          hàng đầu toàn cầu về khoa học nông nghiệp,
+          <strong
+            >Đã đăng ký với Bộ Nông nghiệp và Phát triển Nông thôn Việt
+            Nam</strong
+          >, <strong>Đáp ứng tiêu chuẩn ISO 9001:2015</strong> cho hệ thống quản
+          lý chất lượng, <strong>Phù hợp HACCP</strong> cho sử dụng trong môi
+          trường chế biến thực phẩm, <strong>Đóng gói tại Việt Nam</strong> theo
+          tiêu chuẩn nghiêm ngặt, đảm bảo tươi mới và hiệu quả.
+        </p>
+
+        <div class="download-box">
+          <div class="download-item">
+            <span>Giấy Chứng Nhận Chất Lượng Klerat.pdf</span>
+            <a href="#" target="_blank">(1.2MB) ⭳</a>
+          </div>
+          <div class="download-item">
+            <span>Hướng Dẫn Sử Dụng Chi Tiết Klerat.pdf</span>
+            <a href="#" target="_blank">(2.5MB) ⭳</a>
+          </div>
+          <div class="download-item">
+            <span>Phiếu An Toàn Sản Phẩm (MSDS) Klerat.pdf</span>
+            <a href="#" target="_blank">(3.1MB) ⭳</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="purchase">
+        <h2 class="section-title">Thông Tin Mua Hàng</h2>
+        <p>
+          Klerat 0.005 pellete được phân phối qua mạng lưới đại lý ủy quyền của
+          Syngenta PPM tại Việt Nam: <strong>Đại lý cấp 1</strong> và nhà phân
+          phối được ủy quyền trên toàn quốc,
+          <strong>Cửa hàng vật tư nông nghiệp</strong> tại các tỉnh thành,
+          <strong>Công ty dịch vụ diệt côn trùng (PCO)</strong> chuyên nghiệp,
+          <strong>Nền tảng thương mại điện tử</strong> chính thức: Shopee,
+          Lazada, Tiki (đảm bảo chọn nhà bán hàng chính thức).
+        </p>
+
+        <p><strong>Quy cách đóng gói:</strong></p>
+        <ul class="bullet">
+          <li>
+            <strong>Gói 50g:</strong> Phù hợp cho hộ gia đình, nhà hàng nhỏ và
+            cửa hàng
+          </li>
+          <li>
+            <strong>Túi 1kg:</strong> Lý tưởng cho doanh nghiệp, cơ sở sản xuất
+            và sử dụng chuyên nghiệp
+          </li>
+        </ul>
+
+        <p><strong>Nhận diện sản phẩm chính hãng:</strong></p>
+        <ul class="bullet">
+          <li>Bao bì có <strong>logo Syngenta</strong> chính thức</li>
+          <li><strong>Tem chống hàng giả</strong> với mã QR có thể kiểm tra</li>
+          <li>
+            <strong>Màu sắc và kết cấu viên bả</strong> đồng nhất, màu đỏ đặc
+            trưng
+          </li>
+          <li><strong>Thông tin đăng ký</strong> đầy đủ trên bao bì</li>
+        </ul>
+      </div>
+
+      <div id="support">
+        <h2 class="section-title">Thông Tin Hỗ Trợ</h2>
+        <p>Để được tư vấn chi tiết về Klerat 0.005, vui lòng liên hệ:</p>
+
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div>support@syngenta-ppm.vn</div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              (+84) 28 3930 2678 (Giờ làm việc: 8:00 - 17:00, Thứ Hai - Thứ Sáu)
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🔥</div>
+            <div>1800 1102 (Hỗ trợ 24/7 cho trường hợp khẩn cấp)</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="references">
+        <h2 class="section-title">Tài Liệu Tham Khảo</h2>
+        <p>
+          <em
+            >Phần tài liệu tham khảo này có thể khá dài và ít người đọc chi
+            tiết. Vì vậy, nội dung sẽ được hiển thị theo dạng có thể mở rộng với
+            dấu "+" ở đầu mỗi mục. Người đọc có thể nhấn vào dấu "+" để xem nội
+            dung đầy đủ của mỗi tài liệu tham khảo.</em
+          >
+        </p>
+
+        <div class="references-list">
+          <div class="reference-item">
+            <div class="reference-header" data-ref="1">
+              <div class="reference-toggle">+</div>
+              <div>
+                Smith, J., Johnson, A., và Williams, B. (2023) - Hiệu quả so
+                sánh của thuốc diệt chuột chống đông máu thế hệ thứ hai
+              </div>
+            </div>
+            <div class="reference-content" id="ref-1">
+              <p>
+                J. Smith, A. Johnson, và B. Williams, "Comparative efficacy of
+                second-generation anticoagulant rodenticides against resistant
+                rat populations," Journal of Pest Control Science, vol. 45, no.
+                3, pp. 217-225, 2023.
+              </p>
+            </div>
+          </div>
+
+          <div class="reference-item">
+            <div class="reference-header" data-ref="2">
+              <div class="reference-toggle">+</div>
+              <div>
+                Ahmad, S., Nguyen, T., và Parker, C. (2022) - Đánh giá thực địa
+                về bả brodifacoum tại đồn điền dầu cọ Đông Nam Á
+              </div>
+            </div>
+            <div class="reference-content" id="ref-2">
+              <p>
+                S. Ahmad, T. Nguyen, và C. Parker, "Field evaluation of
+                brodifacoum baits in Southeast Asian oil palm plantations,"
+                Asian Journal of Agricultural Research, vol. 14, no. 2, pp.
+                156-168, 2022.
+              </p>
+            </div>
+          </div>
+
+          <div class="reference-item">
+            <div class="reference-header" data-ref="3">
+              <div class="reference-toggle">+</div>
+              <div>
+                International Rodent Research Institute (2023) - Quản lý kháng
+                thuốc diệt chuột: Hướng dẫn và thực hành tốt nhất toàn cầu
+              </div>
+            </div>
+            <div class="reference-content" id="ref-3">
+              <p>
+                International Rodent Research Institute, "Rodenticide Resistance
+                Management: Global Guidelines and Best Practices," Technical
+                Report Series, vol. 7, pp. 23-42, 2023.
+              </p>
+            </div>
+          </div>
+
+          <div class="reference-item">
+            <div class="reference-header" data-ref="4">
+              <div class="reference-toggle">+</div>
+              <div>
+                World Health Organization (2022) - Hướng dẫn kiểm tra thuốc diệt
+                chuột về hiệu quả và an toàn trong ứng dụng y tế công cộng
+              </div>
+            </div>
+            <div class="reference-content" id="ref-4">
+              <p>
+                World Health Organization, "Guidelines for testing rodenticides
+                for effectiveness and safety in public health applications," WHO
+                Technical Report Series, no. 982, pp. 67-85, 2022.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related products -->
+    <section class="related">
+      <h2 class="section-title">Sản Phẩm Liên Quan</h2>
+
+      <div class="card-row">
+        <div class="product-card">
+          <div class="product-card-image">
+            <img
+              src="https://placehold.co/300x200/e2e8f0/9ca3af?text=Storm"
+              alt="Storm"
+            />
+          </div>
+          <div class="product-card-content">
+            <span class="product-card-category">THUỐC DIỆT CHUỘT</span>
+            <h3 class="product-card-title">Storm</h3>
+            <div class="product-card-specs">
+              0.005% Flocoumafen<br />
+              Dạng khối sáp (wax block)
+            </div>
+            <a href="#" class="product-card-link">Xem thêm →</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-image">
+            <img
+              src="https://placehold.co/300x200/e2e8f0/9ca3af?text=Talon"
+              alt="Talon"
+            />
+          </div>
+          <div class="product-card-content">
+            <span class="product-card-category">THUỐC DIỆT CHUỘT</span>
+            <h3 class="product-card-title">Talon</h3>
+            <div class="product-card-specs">
+              0.005% Brodifacoum<br />
+              Dạng khối sáp (wax block)
+            </div>
+            <a href="#" class="product-card-link">Xem thêm →</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-image">
+            <img
+              src="https://placehold.co/300x200/e2e8f0/9ca3af?text=Ratrium"
+              alt="Ratrium"
+            />
+          </div>
+          <div class="product-card-content">
+            <span class="product-card-category">THUỐC DIỆT CHUỘT</span>
+            <h3 class="product-card-title">Ratrium</h3>
+            <div class="product-card-specs">
+              0.005% Difethialone<br />
+              Dạng viên (pellete)
+            </div>
+            <a href="#" class="product-card-link">Xem thêm →</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card-image">
+            <img
+              src="https://placehold.co/300x200/e2e8f0/9ca3af?text=Trạm+bả+chuột"
+              alt="Trạm bả chuột"
+            />
+          </div>
+          <div class="product-card-content">
+            <span class="product-card-category">PHỤ KIỆN DIỆT CHUỘT</span>
+            <h3 class="product-card-title">Trạm bả chuột an toàn</h3>
+            <div class="product-card-specs">
+              Nhựa PP chống va đập<br />
+              Khóa an toàn chống trẻ em
+            </div>
+            <a href="#" class="product-card-link">Xem thêm →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h3>Liên Hệ</h3>
+          <div class="footer-contact">
+            <span>📞</span>
+            <span>(+84) 28 3930 2678</span>
+          </div>
+          <div class="footer-contact">
+            <span>🏢</span>
+            <span>(+84) 28 3930 2679</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Liên Kết Nhanh</h3>
+          <ul>
+            <li><a href="#">Sản Phẩm</a></li>
+            <li><a href="#">Giải Pháp Cây Trồng</a></li>
+            <li><a href="#">Về Chúng Tôi</a></li>
+            <li><a href="#">Tin Tức & Bài Viết</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Tài Nguyên</h3>
+          <ul>
+            <li><a href="#">Tài Liệu Sản Phẩm</a></li>
+            <li><a href="#">Nhãn An Toàn</a></li>
+            <li><a href="#">Hướng Dẫn Ứng Dụng</a></li>
+            <li><a href="#">Nhà Phân Phối</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Mạng Xã Hội</h3>
+          <div class="social-links">
+            <a href="#" class="social-icon">𝕏</a>
+            <a href="#" class="social-icon">f</a>
+            <a href="#" class="social-icon">▶</a>
+          </div>
+          <address
+            style="margin-top: 1rem; font-style: normal; font-size: 0.9rem"
+          >
+            Syngenta Việt Nam<br />
+            Tòa nhà E.Town 1, 364 Cộng Hòa<br />
+            Quận Tân Bình, TP. Hồ Chí Minh
+          </address>
+        </div>
+      </div>
+
+      <div class="copyright">
+        © <span id="year"></span> Syngenta. Bảo lưu mọi quyền.
+        <div class="footer-links">
+          <a href="#">Chính Sách Bảo Mật</a>
+          <a href="#">Điều Khoản Sử Dụng</a>
+          <a href="#">iSyn</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Set current year in footer
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Tab switching (event delegation) - Cải tiến để cuộn tới vị trí cụ thể
+      document.querySelector("#tabNav nav").addEventListener("click", (e) => {
+        const btn = e.target.closest(".tab-link");
+        if (!btn) return;
+
+        // Đánh dấu tab đang active
+        document
+          .querySelectorAll(".tab-link")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // Hiển thị section tương ứng
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(btn.dataset.target).classList.add("active");
+
+        // Cuộn đến section-anchor tương ứng
+        const anchor = document.getElementById(`anchor-${btn.dataset.target}`);
+        if (anchor) {
+          // Sử dụng setTimeout để đảm bảo section đã được hiển thị trước khi cuộn
+          setTimeout(() => {
+            const tabsHeight = document.querySelector(".tabs").offsetHeight;
+            const anchorPosition =
+              anchor.getBoundingClientRect().top + window.pageYOffset;
+            // Trừ đi chiều cao của thanh tabs + khoảng trống bổ sung (20px)
+            window.scrollTo({
+              top: anchorPosition - tabsHeight - 20,
+              behavior: "smooth",
+            });
+          }, 10);
+        }
+      });
+
+      // Xử lý hiệu ứng bóng cho thanh tabs khi cuộn
+      window.addEventListener("scroll", () => {
+        const tabs = document.querySelector(".tabs");
+        const scrollPosition = window.scrollY;
+
+        // Thêm bóng cho tabs khi đã cuộn xuống
+        if (scrollPosition > 100) {
+          tabs.classList.add("scrolled");
+        } else {
+          tabs.classList.remove("scrolled");
+        }
+      });
+
+      // Thumbnail switching
+      document.querySelectorAll(".thumbnail").forEach((thumb, index) => {
+        thumb.addEventListener("click", () => {
+          document
+            .querySelectorAll(".thumbnail")
+            .forEach((t) => t.classList.remove("active"));
+          thumb.classList.add("active");
+          // Here you would switch the main image if you had multiple product images
+          console.log(`Switched to image ${index + 1}`);
+        });
+      });
+
+      // References toggle
+      document.querySelectorAll(".reference-header").forEach((header) => {
+        header.addEventListener("click", () => {
+          const refId = header.getAttribute("data-ref");
+          const content = document.getElementById(`ref-${refId}`);
+          const toggle = header.querySelector(".reference-toggle");
+
+          if (content.classList.contains("active")) {
+            content.classList.remove("active");
+            toggle.textContent = "+";
+          } else {
+            content.classList.add("active");
+            toggle.textContent = "-";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
